@@ -3,9 +3,6 @@ version: "3.8"
 services:
   app:
     build:
-      args:
-        user: laravel
-        uid: 1000
       context: .
       dockerfile: ./docker/Dockerfile
     restart: unless-stopped
