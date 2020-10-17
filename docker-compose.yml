@@ -6,9 +6,10 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile
     restart: always
-    working_dir: /var/www/html
+    working_dir: /home/laravel/site
+    tty: false
     volumes:
-      - ./src:/var/www/html
+      - ./src:/home/laravel/site
     networks:
       - laravel
 
@@ -30,7 +31,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./src:/var/www/html
+      - ./src:/home/laravel/site
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
       - laravel

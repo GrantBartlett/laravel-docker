@@ -1,3 +1,5 @@
+# PHP-FPM is a FastCGI implementation for PHP.
+# Read more here: https://hub.docker.com/_/php
 FROM php:7.4-fpm
 
 # Install system dependencies
@@ -6,19 +8,12 @@ RUN apt-get update && apt-get install -y \
     libjpeg62-turbo-dev \
     libpng-dev \
     unzip \
-    libzip-dev \ 
-    cron
+    libzip-dev
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql exif pcntl bcmath gd zip \
     && docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
-
-# Cron setup
-COPY /docker/laravel-cron /etc/cron.d/laravel-cron
-RUN chmod 0644 /etc/cron.d/laravel-cron
-RUN crontab /etc/cron.d/laravel-cron
-RUN touch /var/log/cron.log
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -27,13 +22,21 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Setup web user
-RUN useradd -G www-data -u 1000 -d /home/laravel laravel
+# --groups - Specify the groups we want our new user to be added to.
+# --uid - Add a non system account (i.e not < 1000)
+# --home - Specify path for the users home directory
+RUN useradd --groups www-data --uid 1000 --home /home/laravel laravel
 
-RUN mkdir -p /home/laravel/.composer && \
-    chown -R laravel:laravel /home/laravel
+# Setup composer & site folders
+# --parents - Make parent directories as needed
+# chown:owner:group - Change the group owner of our files  
+# --recursive - Operate on all files and directories recursively 
+RUN mkdir --parents /home/laravel/.composer && \
+    mkdir /home/laravel/site && \
+    chown --recursive laravel:laravel /home/laravel
 
 # Set working directory
-WORKDIR /var/www/html
+WORKDIR /home/laravel/site
 
-COPY ./docker/entrypoint.sh /
-ENTRYPOINT /entrypoint.sh
+# Ensure our user is not root
+USER laravel
