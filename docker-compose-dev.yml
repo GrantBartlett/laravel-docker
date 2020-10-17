@@ -6,9 +6,9 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile
     restart: unless-stopped
-    working_dir: /var/www/html
+    working_dir: /home/laravel/site
     volumes:
-      - ./src:/var/www/html
+      - ./src:/home/laravel/site
     networks:
       - laravel
 
@@ -31,7 +31,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./src:/var/www/html
+      - ./src:/home/laravel/site
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
       - laravel

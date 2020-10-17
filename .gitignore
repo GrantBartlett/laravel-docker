@@ -1,5 +1,6 @@
 src/*
 !src/install.sh
+!src/cron.sh
 !src/.env.example
 mysql
 .env
