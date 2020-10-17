@@ -7,7 +7,7 @@ Docker image for Laravel Applications, utilising docker-compose.
 - Note: `.env.example` is included in two places, one for docker-compose to read and the other for Laravel to read.  
 - Clone the latest Laravel into your src folder
 - Make sure `DB_CONNECTION=mysql` equals your service name for `mysql`.
-- To run commands, use docker-compose exec, or enter the docker container: `docker-compose exec app php artisan config:clear`
+- To run commands, use docker-compose exec, e.g: `docker-compose exec app php artisan config:clear`
 
 
 ### Development
