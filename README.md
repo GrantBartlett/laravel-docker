@@ -10,7 +10,7 @@ See `docker-compose.yml` and `docker/Dockerfile` to see whats going on under the
 - `mysql`
 - `php:7.4-fpm`
 
-### Configuration 
+### Getting started & configuration 
 
 - Create a Laravel project. `composer create-project laravel/laravel src`, or clone the latest git project from Laravel into a new folder called `src`.
 - Copy our env example `cp ./.env.example` to `./src/.env`. Open and edit MYSQL details, specifically username, database and password as you require.
