@@ -1,7 +1,7 @@
 # 🚀 Laravel Docker Starter 
 
 ## About this project
-Intended to just be a simple docker starter for staring a new Laravel project. 
+Intended to just be a simple docker starter for starting a new Laravel project. 
 
 It utilises official docker images with docker-compose. 
 See `docker-compose.yml` and `docker/Dockerfile` to see whats going on under the hood.
