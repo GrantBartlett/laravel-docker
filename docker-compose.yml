@@ -27,6 +27,8 @@ services:
     image: mysql
     restart: always
     env_file: ./src/.env
+    networks:
+      - laravel
 
 
 networks:
