@@ -32,3 +32,8 @@ Steps you can repeat whenever you need to build or re-launch your site.
 docker-compose build
 docker-compose up
 ```
+
+
+### Infrastructure model
+
+![Infrastructure model](.infragenie/infrastructure_model.png)
